@@ -22,6 +22,17 @@ class Piece {
 
     initFXChannels(){
 
+        // REVERB
+
+        this.c = new MyConvolver();
+        this.cB = new MyBuffer2( 2 , 2 , audioCtx.sampleRate );
+        this.cB.noise().add( 0 );
+        this.cB.noise().add( 1 );
+
+        this.c.setBuffer( this.cB.buffer );
+
+        this.c.output.gain.value = 4;
+
         // DELAY
 
         this.d1 = new Effect();
@@ -39,16 +50,58 @@ class Piece {
         this.d3.on();
         this.d3.output.gain.value = 0.25;
 
-        // REVERB
+        // DELAY MODULATION
 
-        this.c = new MyConvolver();
-        this.cB = new MyBuffer2( 2 , 2 , audioCtx.sampleRate );
-        this.cB.noise().add( 0 );
-        this.cB.noise().add( 1 );
+        this.dB1L = new MyBuffer2( 1 , 1 , audioCtx.sampleRate );
+        this.dB1L.unipolarNoise( 0 ).fill( 0 );
+        this.dB1L.constant( randomFloat( 0.02 , 0.03 ) ).multiply( 0 );
+        this.dB1L.playbackRate = randomFloat( 0.00002125 , 0.00003125 );
+        this.dB1L.loop = true;
+        this.dB1L.start();
 
-        this.c.setBuffer( this.cB.buffer );
+        this.dB1R = new MyBuffer2( 1 , 1 , audioCtx.sampleRate );
+        this.dB1R.unipolarNoise( 0 ).fill( 0 );
+        this.dB1R.constant( randomFloat( 0.02 , 0.03 ) ).multiply( 0 );
+        this.dB1R.playbackRate = randomFloat( 0.00002125 , 0.00003125 );
+        this.dB1R.loop = true;
+        this.dB1R.start();
 
-        this.c.output.gain.value = 4;
+        this.dB2L = new MyBuffer2( 1 , 1 , audioCtx.sampleRate );
+        this.dB2L.unipolarNoise( 0 ).fill( 0 );
+        this.dB2L.constant( randomFloat( 0.02 , 0.03 ) ).multiply( 0 );
+        this.dB2L.playbackRate = randomFloat( 0.00002125 , 0.00003125 );
+        this.dB2L.loop = true;
+        this.dB2L.start();
+            
+        this.dB2R = new MyBuffer2( 1 , 1 , audioCtx.sampleRate );
+        this.dB2R.unipolarNoise( 0 ).fill( 0 );
+        this.dB2R.constant( randomFloat( 0.02 , 0.03 ) ).multiply( 0 );
+        this.dB2R.playbackRate = randomFloat( 0.00002125 , 0.00003125 );
+        this.dB2R.loop = true;
+        this.dB2R.start();
+
+        this.dB3L = new MyBuffer2( 1 , 1 , audioCtx.sampleRate );
+        this.dB3L.unipolarNoise( 0 ).fill( 0 );
+        this.dB3L.constant( randomFloat( 0.02 , 0.03 ) ).multiply( 0 );
+        this.dB3L.playbackRate = randomFloat( 0.00002125 , 0.00003125 );
+        this.dB3L.loop = true;
+        this.dB3L.start();
+
+        this.dB3R = new MyBuffer2( 1 , 1 , audioCtx.sampleRate );
+        this.dB3R.unipolarNoise( 0 ).fill( 0 );
+        this.dB3R.constant( randomFloat( 0.02 , 0.03 ) ).multiply( 0 );
+        this.dB3R.playbackRate = randomFloat( 0.00002125 , 0.00003125 );
+        this.dB3R.loop = true;
+        this.dB3R.start();
+
+        this.dB1L.connect( this.d1.dly.delayL.delayTime );
+        this.dB1R.connect( this.d1.dly.delayR.delayTime );
+
+        this.dB3L.connect( this.d3.dly.delayL.delayTime );
+        this.dB3R.connect( this.d3.dly.delayR.delayTime );
+
+        this.dB2L.connect( this.d2.dly.delayL.delayTime );
+        this.dB2R.connect( this.d2.dly.delayR.delayTime );
 
         // CONNECTIONS
 
@@ -167,6 +220,7 @@ class Piece {
         // fund: 341.81138535900806 , rate: 0.2768428977596041
         // fund: 386.8261432490279 , rate: 0.2697947447996076
         // fund: 387.4095599970584 , rate: 0.30173519289017847
+        // fund: 357.8512224119997 , rate: 0.30347043562495163
         
         this.fund = randomFloat( 325 , 400 );
         this.rate = randomFloat( 0.25 , 0.35 );
