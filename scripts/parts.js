@@ -233,7 +233,7 @@ class Piece {
         this.rate = randomFloat( 0.25 , 0.35 ) / divMult;
         const nHarmonics = 1;
         
-        console.log( `fund: ${this.fund} , rate: ${this.rate}` );
+        console.log( `divMult: ${divMult} , fund: ${this.fund} , rate: ${this.rate}` );
         
         // startTime , playbackRate , fund , nHarmonics , iArray , oArray , gArray , nDivs , gainVal
         this.sB1.load( this.rate , this.fund , nHarmonics , [ 1 , M2 , P4 , P5 , M6 ] , [ 1 , 2 ] , [ 0.25 , 1 ] , 10 * divMult , 0.25 );
