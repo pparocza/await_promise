@@ -228,7 +228,7 @@ class Piece {
 
         // fund: 795.2770278384913 , rate: 0.1574199080097405
         
-        const divMult = randomInt( 2 , 4 );
+        const divMult = randomInt( 2 , 5 );
         this.fund = randomFloat( 325 , 400 ) * divMult;
         this.rate = randomFloat( 0.25 , 0.35 ) / divMult;
         const nHarmonics = 1;
