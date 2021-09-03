@@ -7,6 +7,7 @@ function bufferLoaded(){
 
 	piece = new Piece();
 	piece.initMasterChannel();
+	piece.initFXChannels();
 	piece.load();
 
 	// INITIALIZATIONS
