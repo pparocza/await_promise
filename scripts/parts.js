@@ -226,30 +226,25 @@ class Piece {
         this.sB7 = new SequenceBuffer( this );
         this.sB8 = new SequenceBuffer( this );
 
-        // fund: 341.81138535900806 , rate: 0.2768428977596041
-        // fund: 386.8261432490279 , rate: 0.2697947447996076
-        // fund: 387.4095599970584 , rate: 0.30173519289017847
-        // fund: 357.8512224119997 , rate: 0.30347043562495163
-        // fund: 344.14315911240794 , rate: 0.34123820029783114
-        // fund: 352.82090555108584 , rate: 0.2578094120694477
-        // fund: 352.82090555108584 , rate: 0.2578094120694477
+        // fund: 795.2770278384913 , rate: 0.1574199080097405
         
-        this.fund = randomFloat( 325 , 400 );
-        this.rate = randomFloat( 0.25 , 0.35 );
+        const divMult = randomInt( 2 , 4 );
+        this.fund = randomFloat( 325 , 400 ) * divMult;
+        this.rate = randomFloat( 0.25 , 0.35 ) / divMult;
         const nHarmonics = 1;
         
         console.log( `fund: ${this.fund} , rate: ${this.rate}` );
         
         // startTime , playbackRate , fund , nHarmonics , iArray , oArray , gArray , nDivs , gainVal
-        this.sB1.load( this.rate , this.fund , nHarmonics , [ 1 , M2 , P4 , P5 , M6 ] , [ 1 , 2 ] , [ 0.25 , 1 ] , 10 , 0.25 );
-        this.sB2.load( this.rate , this.fund , nHarmonics , [ 1 , M2 , P4 , P5 , M6 ] , [ 1 , 2 ] , [ 0.25 , 1 ] , 9 , 0.25 );
-        this.sB3.load( this.rate , this.fund , nHarmonics , [ 1 , M3 ,  P5 , M6 ] , [ 4 , 1 , 2 , 8 ] , [ 0.25 , 1 ] , 11 , 0.0625 );
-        this.sB4.load( this.rate * 0.5 ,  this.fund , nHarmonics , [ 1 , M3 ,  P5 , M6 ] , [ 1 , 2 , 4 ] , [ 0.25 , 1 ] , 10 , 0.5 );
+        this.sB1.load( this.rate , this.fund , nHarmonics , [ 1 , M2 , P4 , P5 , M6 ] , [ 1 , 2 ] , [ 0.25 , 1 ] , 10 * divMult , 0.25 );
+        this.sB2.load( this.rate , this.fund , nHarmonics , [ 1 , M2 , P4 , P5 , M6 ] , [ 1 , 2 ] , [ 0.25 , 1 ] , 9 * divMult , 0.25 );
+        this.sB3.load( this.rate , this.fund , nHarmonics , [ 1 , M3 ,  P5 , M6 ] , [ 4 , 1 , 2 , 8 ] , [ 0.25 , 1 ] , 11 * divMult , 0.0625 );
+        this.sB4.load( this.rate * 0.5 ,  this.fund , nHarmonics , [ 1 , M3 ,  P5 , M6 ] , [ 1 , 2 , 4 ] , [ 0.25 , 1 ] , 10 * divMult , 0.5 );
         
-        this.sB5.load( this.rate , this.fund , nHarmonics , [ 1 , M2 , P4 , P5 , M6 ] , [ 1 , 2 ] , [ 0.25 , 1 ] , 10 , 0.25 );
-        this.sB6.load( this.rate , this.fund , nHarmonics , [ 1 , M2 , P4 , P5 , M6 ] , [ 1 , 2 ] , [ 0.25 , 1 ] , 9 , 0.25 );
-        this.sB7.load( this.rate , this.fund , nHarmonics , [ 1 , M3 ,  P5 , M6 ] , [ 4 , 1 , 2 , 8 ] , [ 0.25 , 1 ] , 11 , 0.0625 );
-        this.sB8.load( this.rate * 0.5 ,  this.fund , nHarmonics , [ 1 , M3 ,  P5 , M6 ] , [ 1 , 2 , 4 ] , [ 0.25 , 1 ] , 10 , 0.5 );
+        this.sB5.load( this.rate , this.fund , nHarmonics , [ 1 , M2 , P4 , P5 , M6 ] , [ 1 , 2 ] , [ 0.25 , 1 ] , 10 * divMult , 0.25 );
+        this.sB6.load( this.rate , this.fund , nHarmonics , [ 1 , M2 , P4 , P5 , M6 ] , [ 1 , 2 ] , [ 0.25 , 1 ] , 9 * divMult , 0.25 );
+        this.sB7.load( this.rate , this.fund , nHarmonics , [ 1 , M3 ,  P5 , M6 ] , [ 4 , 1 , 2 , 8 ] , [ 0.25 , 1 ] , 11 * divMult , 0.0625 );
+        this.sB8.load( this.rate * 0.5 ,  this.fund , nHarmonics , [ 1 , M3 ,  P5 , M6 ] , [ 1 , 2 , 4 ] , [ 0.25 , 1 ] , 10 * divMult , 0.5 );
 
     }
 
