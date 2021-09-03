@@ -56,7 +56,7 @@ class Piece {
         this.d2.connect( this.masterGain );
         this.d3.connect( this.masterGain );
 
-        this.c.connect( audioCtx.destination );
+        this.c.connect( this.masterGain );
 
     }
 
@@ -126,11 +126,23 @@ class Piece {
         this.sB1.play( 0  / this.rate , 8 / this.rate );
         this.sB2.play( 4  / this.rate , 8 / this.rate );
 
+        // 2
         this.sB5.play( 8  / this.rate , 16 / this.rate );
         this.sB6.play( 8  / this.rate , 16 / this.rate );
 
-        this.sB3.play( 12 / this.rate , 16 / this.rate );
+        // 3
+        this.sB3.play( 12 / this.rate , 20 / this.rate );
+        this.sB7.play( 16 / this.rate , 20 / this.rate );
 
+        this.sB5.play( 16 / this.rate ,  20 / this.rate );
+        this.sB2.play( 16 / this.rate ,  20 / this.rate );
+
+        // 4
+        this.sB1.play( 20 / this.rate , 24 / this.rate );
+
+        this.sB6.play( 20 / this.rate , 28 / this.rate );
+
+        this.sB2.play( 24 / this.rate , 28 / this.rate );
     }
 
     stop() {
@@ -153,6 +165,8 @@ class Piece {
         this.sB8 = new SequenceBuffer( this );
 
         // fund: 341.81138535900806 , rate: 0.2768428977596041
+        // fund: 386.8261432490279 , rate: 0.2697947447996076
+        // fund: 387.4095599970584 , rate: 0.30173519289017847
         
         this.fund = randomFloat( 325 , 400 );
         this.rate = randomFloat( 0.25 , 0.35 );
