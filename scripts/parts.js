@@ -33,6 +33,11 @@ class Piece {
 
         this.c.output.gain.value = 4;
 
+        this.cD = new Effect();
+        this.cD.randomEcho();
+        this.cD.on();
+        this.cD.output.gain.value = 0.125;
+
         // DELAY
 
         this.d1 = new Effect();
@@ -108,8 +113,11 @@ class Piece {
         this.d1.connect( this.masterGain );
         this.d2.connect( this.masterGain );
         this.d3.connect( this.masterGain );
+        
+        this.c.connect( this.cD );
 
         this.c.connect( this.masterGain );
+        this.cD.connect( this.masterGain );
 
     }
 
@@ -196,6 +204,7 @@ class Piece {
         this.sB6.play( 20 / this.rate , 28 / this.rate );
 
         this.sB2.play( 24 / this.rate , 28 / this.rate );
+        this.sB3.play( 24 / this.rate , 28 / this.rate );
     }
 
     stop() {
@@ -221,6 +230,9 @@ class Piece {
         // fund: 386.8261432490279 , rate: 0.2697947447996076
         // fund: 387.4095599970584 , rate: 0.30173519289017847
         // fund: 357.8512224119997 , rate: 0.30347043562495163
+        // fund: 344.14315911240794 , rate: 0.34123820029783114
+        // fund: 352.82090555108584 , rate: 0.2578094120694477
+        // fund: 352.82090555108584 , rate: 0.2578094120694477
         
         this.fund = randomFloat( 325 , 400 );
         this.rate = randomFloat( 0.25 , 0.35 );
