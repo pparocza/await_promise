@@ -9,7 +9,7 @@ class Piece {
         this.globalNow = 0;
 
         this.gain = audioCtx.createGain();
-        this.gain.gain.value = 0.5;
+        this.gain.gain.value = 3;
     
         this.fadeFilter = new FilterFade(0);
     
@@ -71,7 +71,7 @@ class Piece {
         this.fadeFilter.start(1, 50);
 		this.globalNow = audioCtx.currentTime;
 
-        const structureIndex = 1;
+        const structureIndex = 2;
 
         switch( structureIndex ){
             case 0: 
@@ -79,6 +79,9 @@ class Piece {
                 break;
             case 1: 
                 this.structure2();
+                break;
+            case 2: 
+                this.structure3();
                 break;
         }
 
@@ -117,6 +120,19 @@ class Piece {
 
     }
 
+    structure3(){
+
+        // 1
+        this.sB1.play( 0  / this.rate , 8 / this.rate );
+        this.sB2.play( 4  / this.rate , 8 / this.rate );
+
+        this.sB5.play( 8  / this.rate , 16 / this.rate );
+        this.sB6.play( 8  / this.rate , 16 / this.rate );
+
+        this.sB3.play( 12 / this.rate , 16 / this.rate );
+
+    }
+
     stop() {
 
         this.fadeFilter.start(0, 20);
@@ -138,8 +154,8 @@ class Piece {
 
         // fund: 341.81138535900806 , rate: 0.2768428977596041
         
-        this.fund = 341.81138535900806; // randomFloat( 325 , 400 );
-        this.rate = 0.2768428977596041; // randomFloat( 0.25 , 0.35 );
+        this.fund = randomFloat( 325 , 400 );
+        this.rate = randomFloat( 0.25 , 0.35 );
         const nHarmonics = 1;
         
         console.log( `fund: ${this.fund} , rate: ${this.rate}` );
@@ -150,8 +166,8 @@ class Piece {
         this.sB3.load( this.rate , this.fund , nHarmonics , [ 1 , M3 ,  P5 , M6 ] , [ 4 , 1 , 2 , 8 ] , [ 0.25 , 1 ] , 11 , 0.0625 );
         this.sB4.load( this.rate * 0.5 ,  this.fund , nHarmonics , [ 1 , M3 ,  P5 , M6 ] , [ 1 , 2 , 4 ] , [ 0.25 , 1 ] , 10 , 0.5 );
         
-        this.sB5.load( this.rate , this.fund , nHarmonics , [ 1 , M2 , P4 , P5 , M6 ] , [ 4 , 1 , 2 ] , [ 0.25 , 1 ] , 10 , 0.25 );
-        this.sB6.load( this.rate , this.fund , nHarmonics , [ 1 , M2 , P4 , P5 , M6 ] , [ 1 , 2 , 4 ] , [ 0.25 , 1 ] , 9 , 0.25 );
+        this.sB5.load( this.rate , this.fund , nHarmonics , [ 1 , M2 , P4 , P5 , M6 ] , [ 1 , 2 ] , [ 0.25 , 1 ] , 10 , 0.25 );
+        this.sB6.load( this.rate , this.fund , nHarmonics , [ 1 , M2 , P4 , P5 , M6 ] , [ 1 , 2 ] , [ 0.25 , 1 ] , 9 , 0.25 );
         this.sB7.load( this.rate , this.fund , nHarmonics , [ 1 , M3 ,  P5 , M6 ] , [ 4 , 1 , 2 , 8 ] , [ 0.25 , 1 ] , 11 , 0.0625 );
         this.sB8.load( this.rate * 0.5 ,  this.fund , nHarmonics , [ 1 , M3 ,  P5 , M6 ] , [ 1 , 2 , 4 ] , [ 0.25 , 1 ] , 10 , 0.5 );
 
@@ -264,6 +280,9 @@ class SequenceBuffer extends Piece {
         this.w.fmShaper( fund , fund * 2 , 0.25 , 0.001 );
         this.w.on();
 
+        this.w2 = new MyWaveShaper();
+        this.w2.makeSigmoid( 1 );
+
         this.d = new Effect();
         this.d.randomShortDelay();
         this.d.on();
@@ -273,8 +292,10 @@ class SequenceBuffer extends Piece {
 
         this.w.connect( this.d );
 
-        this.oB.connect( this.output );
-        this.d.connect( this.output );
+        this.oB.connect( this.w2 );
+        this.d.connect( this.w2 );
+
+        this.w2.connect( this.output );
 
     }
 
