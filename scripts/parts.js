@@ -144,6 +144,9 @@ class Piece {
             case 2: 
                 this.structure3();
                 break;
+            case 3: 
+                this.structure4();
+                break;
         }
 
     }
@@ -207,7 +210,39 @@ class Piece {
         this.sB3.play( 24 / this.rate , 28 / this.rate );
 
         console.log( ` piece length: ${28 / this.rate} ` );
+
     }
+
+    structure4(){
+
+        // 1
+        this.sB1.play( 0  / this.rate , 1 / this.rate );
+        this.sB2.play( 1  / this.rate , 2 / this.rate );
+
+        // 2
+        this.sB5.play( 2  / this.rate , 3 / this.rate );
+        this.sB6.play( 3  / this.rate , 6 / this.rate );
+
+        // 3
+        this.sB3.play( 4 / this.rate , 5 / this.rate );
+        this.sB7.play( 5 / this.rate , 6 / this.rate );
+
+        this.sB5.play( 6 / this.rate ,  7 / this.rate );
+        this.sB2.play( 7 / this.rate ,  8 / this.rate );
+
+        // 4
+
+        this.sB1.play( 8 / this.rate , 9 / this.rate );
+
+        this.sB6.play( 9 / this.rate , 10 / this.rate );
+
+        this.sB2.play( 10 / this.rate , 12 / this.rate );
+        this.sB3.play( 11 / this.rate , 12 / this.rate );
+
+        console.log( `piece length: ${ 12 / this.rate }` );
+
+    }
+
 
     stop() {
 
