@@ -108,6 +108,17 @@ class Piece {
         this.dB2L.connect( this.d2.dly.delayL.delayTime );
         this.dB2R.connect( this.d2.dly.delayR.delayTime );
 
+        // TEST
+
+        this.s = new SemiOpenPipe( randomInt( 700 , 2000 ) );
+        this.s.output.gain.value = 0.25;
+
+        this.s2 = new SemiOpenPipe( randomInt( 700 , 2000 ) );
+        this.s2.output.gain.value = 0.25;
+
+        this.s3 = new SemiOpenPipe( randomInt( 700 , 2000 ) );
+        this.s3.output.gain.value = 0.25;
+
         // CONNECTIONS
 
         this.d1.connect( this.masterGain );
@@ -118,6 +129,25 @@ class Piece {
 
         this.c.connect( this.masterGain );
         this.cD.connect( this.masterGain );
+
+        this.c.connect( this.s );
+        this.c.connect( this.s2 );
+        this.c.connect( this.s3 );
+
+        this.s.connect( this.d1 );
+        this.s.connect( this.d2 );
+        this.s.connect( this.d3 );
+        this.s.connect( this.cD );
+
+        this.s2.connect( this.d1 );
+        this.s2.connect( this.d2 );
+        this.s2.connect( this.d3 );
+        this.s2.connect( this.cD );
+
+        this.s3.connect( this.d1 );
+        this.s3.connect( this.d2 );
+        this.s3.connect( this.d3 );
+        this.s3.connect( this.cD );
 
     }
 
@@ -209,7 +239,7 @@ class Piece {
         this.sB2.play( 24 / this.rate , 28 / this.rate );
         this.sB3.play( 24 / this.rate , 28 / this.rate );
 
-        console.log( ` piece length: ${28 / this.rate} ` );
+        console.log( `piece length: ${28 / this.rate} ` );
 
     }
 
@@ -282,52 +312,6 @@ class Piece {
         this.sB6.load( this.rate , this.fund , nHarmonics , [ 1 , M2 , P4 , P5 , M6 ] , [ 1 , 2 ] , [ 0.25 , 1 ] , 9 * divMult , 0.25 );
         this.sB7.load( this.rate , this.fund , nHarmonics , [ 1 , M3 ,  P5 , M6 ] , [ 4 , 1 , 2 , 8 ] , [ 0.25 , 1 ] , 11 * divMult , 0.0625 );
         this.sB8.load( this.rate * 0.5 ,  this.fund , nHarmonics , [ 1 , M3 ,  P5 , M6 ] , [ 1 , 2 , 4 ] , [ 0.25 , 1 ] , 10 * divMult , 0.5 );
-
-    }
-
-}
-
-class ToneRepeat extends Piece {
-
-    constructor( piece ){
-
-        super();
-
-        this.output = new MyGain ( 0.125 );
-
-        this.output.connect( piece.masterGain );
-
-    }
-
-    load() {
-
-        // CHANGE TO FILTERED IMPULSE
-
-        this.oB = new MyBuffer2( 1 , 1 , audioCtx.sampleRate );
-        this.oB.sine( 432 * 1 , 1 ).add( 0 );
-        this.oB.ramp( 0 , 1 , 0.01 , 0.015 , 0.1 , 4 ).multiply( 0 );
-        this.oB.playbackRate = 1;
-
-        this.w = new Effect();
-        this.w.fmShaper( 432 * 0.25 , 432 * 0.5 , 2 , 0.001 );
-        this.w.on();
-
-        this.oB.connect( this.w );
-
-        // this.oB.connect( this.output );
-        this.w.connect( this.output );
-
-        bufferGraph( this.oB.buffer );
-
-    }
-
-    play( startTime , nPlays ) {
-
-        for( let i = 0 ; i < nPlays ; i++ ){
-
-            this.oB.startAtTime( piece.globalNow + startTime + i );
-
-        }
 
     }
 
