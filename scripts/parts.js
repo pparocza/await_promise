@@ -205,6 +205,8 @@ class Piece {
 
         this.sB2.play( 24 / this.rate , 28 / this.rate );
         this.sB3.play( 24 / this.rate , 28 / this.rate );
+
+        console.log( ` piece length: ${28 / this.rate} ` );
     }
 
     stop() {
