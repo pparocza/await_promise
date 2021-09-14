@@ -356,7 +356,6 @@ class SequenceBuffer extends Piece {
                 hPeak = randomFloat( 0.1 , 0.9 );
 
                 this.tB.sine( fund * randomArrayValue( iArray ) * randomArrayValue( oArray ) , randomFloat( gArray[0] , gArray[1] ) ).add( 0 );
-                // this.tB.sine( randomFloat( 1 , 5 ) , randomFloat( 0.5 , 1 ) ).multiply( 0 );
                 this.tB.ramp( i / nDivs , ( i + 1 ) / nDivs , hPeak , hPeak , randomFloat( 0.1 , 3 ) , randomFloat( 1 , 4 ) ).multiply( 0 );
 
                 this.tB2.bufferShape( this.tB.buffer ).add( 0 );
